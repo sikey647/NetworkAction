@@ -7,9 +7,11 @@
 #include <errno.h>
 #include <map>
 #include <memory>
+#include "EventLoop.h"
 #include "Event.h"
 
-class Selector {
+
+class Selector : public EventLoop {
     Selector();
     ~Selector();
 
@@ -21,9 +23,6 @@ class Selector {
 private:
     fd_set m_read_mask;
     fd_set m_all_reads;
-    std::map<int, std::shared_ptr<Event>> m_events;
-    int m_status;
 };
-
 
 #endif //NETWORKACTION_SELECTOR_H

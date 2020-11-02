@@ -1,7 +1,3 @@
-//
-// Created by Sikey Liu on 2020/10/31.
-//
-
 #ifndef NETWORKACTION_EVENT_H
 #define NETWORKACTION_EVENT_H
 

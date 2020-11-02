@@ -7,23 +7,26 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include "EventLoop.h"
+#include "Event.h"
 
 class EventClient {
 public:
     // socket、connect
-    EventClient(std::string addr, int port);
+    EventClient(std::string addr, int port, std::shared_ptr<EventLoop> event_loop);
 
     // 事件注册
-    EventRegister();
+    void EventRegister(std::shared_ptr<Event> event);
 
     // 事件注销
-    EventUnRegister();
+    void EventUnRegister(std::shared_ptr<Event> event);
 
-    // select
-    EventLoop();
+    void EventRun();
 
     // close
     ~EventClient();
+
+    int getSocketFd() { return m_socket_fd; }
 
 private:
     void setServerAddr(char* addr, int port);
@@ -34,7 +37,7 @@ private:
 private:
     int m_socket_fd;
     struct sockaddr_in m_server_addr;
-    //socklen_t m_server_addr_len;
+    std::shared_ptr<EventLoop> m_event_loop;
 };
 
 
