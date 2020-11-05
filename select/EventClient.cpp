@@ -1,7 +1,7 @@
 #include "EventClient.h"
 
 // socket、bind、listen、accept
-EventClient::EventClient(std::string addr, int port, std::shared_ptr<Event> event_loop) : m_event_loop(event_loop) {
+EventClient::EventClient(std::string addr, int port, std::shared_ptr<EventLoop> event_loop) : m_event_loop(event_loop) {
     // 设置服务端地址
     setServerAddr(addr, port);
 

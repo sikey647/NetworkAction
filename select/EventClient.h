@@ -15,6 +15,9 @@ public:
     // socket、connect
     EventClient(std::string addr, int port, std::shared_ptr<EventLoop> event_loop);
 
+    // close
+    virtual ~EventClient();
+
     // 事件注册
     void EventRegister(std::shared_ptr<Event> event);
 
@@ -22,9 +25,6 @@ public:
     void EventUnRegister(std::shared_ptr<Event> event);
 
     void EventRun();
-
-    // close
-    ~EventClient();
 
     int getSocketFd() { return m_socket_fd; }
 
