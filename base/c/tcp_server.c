@@ -33,13 +33,13 @@ int main(int argc, char **argv) {
 
     // 2. 绑定本地地址
     if (bind(listen_fd, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0) {
-        perror("bind: ");
+        perror("bind()");
         exit(-1);
     }
 
     // 3. 监听
     if (listen(listen_fd, 1024) < 0) {
-        perror("listen: ");
+        perror("listen()");
         exit(-1);
     }
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
         bzero(buff, BUFFER_SIZE);
         int recv_ret = recv(conn_fd, buff, BUFFER_SIZE, 0);
         if (recv_ret < 0) {
-            perror("recv: ");
+            perror("recv()");
             close(conn_fd);
             exit(-1);
         } else if (recv_ret == 0) {
@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
         strcpy(buff, "Hello, Client!");
         int send_ret = send(conn_fd, buff, sizeof(buff), 0);
         if (send_ret < 0) {
-            perror("send: ");
+            perror("send()");
             close(conn_fd);
             exit(-1);
         } else if (send_ret == 0) {

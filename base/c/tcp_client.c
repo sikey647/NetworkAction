@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     // 2. 建立连接
     int conn_ret = connect(sock_fd, (struct sockaddr *) &server_addr, sizeof(server_addr));
     if (conn_ret < 0) {
-        perror("connect: ");
+        perror("connect()");
         exit(-1);
     }
     fprintf(stdout, "connect Server(%s:%d) success.\n", ip, port);
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     strcpy(buff, "Hello, Server!");
     int send_ret = send(sock_fd, buff, sizeof(buff), 0);
     if (send_ret < 0) {
-        perror("send: ");
+        perror("send()");
         close(sock_fd);
         exit(-1);
     } else if (send_ret == 0) {
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     bzero(buff, BUFFER_SIZE);
     int recv_ret = recv(sock_fd, buff, BUFFER_SIZE, 0);
     if (recv_ret < 0) {
-        perror("recv: ");
+        perror("recv()");
         close(sock_fd);
         exit(-1);
     } else if (recv_ret == 0) {
