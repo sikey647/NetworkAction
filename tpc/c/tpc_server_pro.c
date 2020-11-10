@@ -13,15 +13,16 @@
 
 #include "block_queue.h"
 
-#define BUFFER_SIZE   1024
+#define BUFFER_SIZE 1024
 #define CLIENT_IP_LEN 64
-#define THREAD_NUM    4
+#define THREAD_NUM 4
+#define BLOCK_QUEUE_SIZE 100
 
-struct client_info_st {
+typedef struct {
     int conn_fd;
     char ip[CLIENT_IP_LEN];
     int port;
-};
+} client_info_st;
 
 int listen_socket(int port) {
     // 0. 初始化服务端地址（Port）
@@ -51,10 +52,7 @@ int listen_socket(int port) {
     return listen_fd;
 }
 
-void *thread_handler(void *arg) {
-    pthread_detach(pthread_self());
-    struct client_info_st *client_info_ptr = (struct client_info_st *)arg;
-
+void worker_handler(client_info_st *client_info_ptr) {
     // 接收数据
     char buff[BUFFER_SIZE];
     bzero(buff, BUFFER_SIZE);
@@ -62,11 +60,11 @@ void *thread_handler(void *arg) {
     if (recv_ret < 0) {
         perror("recv: ");
         close(client_info_ptr->conn_fd);
-        exit(-1);
+        return;
     } else if (recv_ret == 0) {
         fprintf(stderr, "client close socket!\n");
         close(client_info_ptr->conn_fd);
-        exit(-1);
+        return;
     }
     fprintf(stdout, "Client(%s:%d): %s\n", client_info_ptr->ip,
             client_info_ptr->port, buff);
@@ -78,19 +76,55 @@ void *thread_handler(void *arg) {
     if (send_ret < 0) {
         perror("send()");
         close(client_info_ptr->conn_fd);
-        exit(-1);
+        return;
     } else if (send_ret == 0) {
         fprintf(stderr, "client close socket!\n");
         close(client_info_ptr->conn_fd);
-        exit(-1);
+        return;
     }
-    fprintf(stdout, "Server[%ld]: %s\n", (unsigned long)client_info_ptr->tid,
-            buff);
+    fprintf(stdout, "Server[%ld]: %s\n", (unsigned long)pthread_self(), buff);
 
     // 关闭连接
     close(client_info_ptr->conn_fd);
-    free(client_info_ptr);
+}
+
+void *thread_handler(void *arg) {
+    pthread_detach(pthread_self());
+    block_queue_st *block_queue_ptr = (block_queue_st *)arg;
+    while (1) {
+        client_info_st *client_info_ptr = NULL;
+        block_queue_pop(block_queue_ptr, (void *)&client_info_ptr);
+        worker_handler(client_info_ptr);
+        free(client_info_ptr);
+    }
+
     return NULL;
+}
+
+client_info_st *accept_client_conn(int listen_fd) {
+    // 接收客户端连接
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_len = sizeof(client_addr);
+    int conn_fd =
+        accept(listen_fd, (struct sockaddr *)&client_addr, &client_addr_len);
+    if (conn_fd < 0) {
+        perror("accept()");
+        return NULL;
+    }
+
+    // 保存客户端信息
+    client_info_st *client_info_ptr =
+        (client_info_st *)malloc(sizeof(client_info_st));
+    if (client_info_ptr == NULL) {
+        perror("malloc()");
+        return NULL;
+    }
+    client_info_ptr->conn_fd = conn_fd;
+    bzero(client_info_ptr->ip, CLIENT_IP_LEN);
+    inet_ntop(AF_INET, &client_addr, client_info_ptr->ip, CLIENT_IP_LEN);
+    client_info_ptr->port = ntohs(client_addr.sin_port);
+
+    return client_info_ptr;
 }
 
 int main(int argc, char **argv) {
@@ -102,11 +136,14 @@ int main(int argc, char **argv) {
     int port = atoi(argv[1]);
 
     // 创建任务队列
+    block_queue_st block_queue;
+    block_queue_init(&block_queue, BLOCK_QUEUE_SIZE);
 
     // 创建线程池
     pthread_t threads[THREAD_NUM];
     for (int i = 0; i < THREAD_NUM; i++) {
-        if (pthread_create(&threads[i], NULL, thread_handler, (void *)client_info_ptr) < 0) {
+        if (pthread_create(&threads[i], NULL, thread_handler,
+                           (void *)&block_queue) < 0) {
             perror("pthread_create()");
             exit(-1);
         }
@@ -116,25 +153,16 @@ int main(int argc, char **argv) {
     int listen_fd = listen_socket(port);
     fprintf(stdout, "Server[%ld] running.\n", (unsigned long)pthread_self());
 
-    struct sockaddr_in client_addr;
-    socklen_t client_addr_len = sizeof(client_addr);
     while (1) {
-        // 接收客户端连接
-        int conn_fd = accept(listen_fd, (struct sockaddr *)&client_addr,
-                             &client_addr_len);
-        // 保存客户端地址
-        struct client_info_st *client_info_ptr =
-            (struct client_info_st *)malloc(sizeof(struct client_info_st));
+        // 接收客户端连接，并获取客户端信息
+        client_info_st *client_info_ptr = accept_client_conn(listen_fd);
         if (client_info_ptr == NULL) {
-            perror("malloc()");
+            fprintf(stderr, "accept_client_conn() failed!\n");
             continue;
         }
-        client_info_ptr->conn_fd = conn_fd;
-        bzero(client_info_ptr->ip, CLIENT_IP_LEN);
-        inet_ntop(AF_INET, &client_addr, client_info_ptr->ip, CLIENT_IP_LEN);
-        client_info_ptr->port = ntohs(client_addr.sin_port);
 
         // queue.push
+        block_queue_push(&block_queue, (void *)client_info_ptr);
     }
 
     close(listen_fd);
@@ -143,7 +171,7 @@ int main(int argc, char **argv) {
 }
 
 // build:
-//  gcc -o tpc_server tpc_server.c -lpthread
+//  make
 
 // run:
-//  ./tpc_server 8080
+//  ./tpc_server_pro 8080
