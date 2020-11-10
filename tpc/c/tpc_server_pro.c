@@ -11,6 +11,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "block_queue.h"
+
 #define BUFFER_SIZE 1024
 #define CLIENT_IP_LEN 64
 
