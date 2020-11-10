@@ -13,14 +13,14 @@
 
 #include "block_queue.h"
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE   1024
 #define CLIENT_IP_LEN 64
+#define THREAD_NUM    4
 
 struct client_info_st {
     int conn_fd;
     char ip[CLIENT_IP_LEN];
     int port;
-    pthread_t tid;
 };
 
 int listen_socket(int port) {
@@ -101,6 +101,17 @@ int main(int argc, char **argv) {
 
     int port = atoi(argv[1]);
 
+    // 创建任务队列
+
+    // 创建线程池
+    pthread_t threads[THREAD_NUM];
+    for (int i = 0; i < THREAD_NUM; i++) {
+        if (pthread_create(&threads[i], NULL, thread_handler, (void *)client_info_ptr) < 0) {
+            perror("pthread_create()");
+            exit(-1);
+        }
+    }
+
     // 创建监听 socket
     int listen_fd = listen_socket(port);
     fprintf(stdout, "Server[%ld] running.\n", (unsigned long)pthread_self());
@@ -123,11 +134,7 @@ int main(int argc, char **argv) {
         inet_ntop(AF_INET, &client_addr, client_info_ptr->ip, CLIENT_IP_LEN);
         client_info_ptr->port = ntohs(client_addr.sin_port);
 
-        if (pthread_create(&client_info_ptr->tid, NULL, thread_handler,
-                           (void *)client_info_ptr) < 0) {
-            perror("pthread_create()");
-            exit(-1);
-        }
+        // queue.push
     }
 
     close(listen_fd);

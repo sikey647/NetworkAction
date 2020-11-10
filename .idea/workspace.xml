@@ -16,23 +16,27 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated />
   </component>
   <component name="CMakeSettings">
-    <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
-    </configurations>
+    <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a50df5d-d5ed-471a-9778-aaede1132fb2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/NetworkAction.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/base/make_socket.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/base/read_n.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/cache_example/read_data.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/cache_example/send_data.c" afterDir="false" />
+    <list default="true" id="05f5793b-6179-40c6-b3d9-1aa4129a81c0" name="默认的" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/c/tcp_client" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpc/block_queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/tpc/c/block_queue.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpc/c/block_queue.h" beforeDir="false" afterPath="$PROJECT_DIR$/tpc/c/block_queue.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpc/c/tpc_server_pro.c" beforeDir="false" afterPath="$PROJECT_DIR$/tpc/c/tpc_server_pro.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +49,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1jJjVzjIJkLQd7lUBrvU7a9Zt0E" />
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/select/EventClient.h" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectId" id="1k4xv7Q8jrh9gDNc507oSBKUU2i" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,31 +61,28 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/code/base" />
+      <recent name="$PROJECT_DIR$/tpc/c" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8a50df5d-d5ed-471a-9778-aaede1132fb2" name="Default Changelist" comment="" />
-      <created>1603529116857</created>
+      <changelist id="05f5793b-6179-40c6-b3d9-1aa4129a81c0" name="默认的" comment="" />
+      <created>1604973892440</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1603529116857</updated>
-      <workItem from="1603529118559" duration="6268000" />
-      <workItem from="1603541145539" duration="1000" />
-      <workItem from="1603543036266" duration="476000" />
-      <workItem from="1603620012639" duration="2535000" />
+      <updated>1604973892440</updated>
+      <workItem from="1604973893451" duration="3330000" />
     </task>
     <servers />
   </component>
@@ -90,48 +94,23 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="2357" y="217" key="#Deployment" timestamp="1603543541737">
-      <screen x="1792" y="23" width="1920" height="1057" />
-    </state>
-    <state x="2357" y="217" key="#Deployment/1792.23.1920.1057/0.23.1792.1097@1792.23.1920.1057" timestamp="1603543541737" />
-    <state x="2416" y="199" key="#Servers" timestamp="1603540846326">
-      <screen x="1792" y="23" width="1920" height="1057" />
-    </state>
-    <state x="2416" y="199" key="#Servers/1792.23.1920.1057/0.23.1792.1097@1792.23.1920.1057" timestamp="1603540846326" />
-    <state x="2365" y="136" key="CommitChangelistDialog2" timestamp="1603529958349">
-      <screen x="1792" y="23" width="1920" height="1057" />
-    </state>
-    <state x="2365" y="136" key="CommitChangelistDialog2/1792.23.1920.1057/0.23.1792.1097@1792.23.1920.1057" timestamp="1603529958349" />
-    <state x="2664" y="289" key="ftp.server.browser" timestamp="1603543219530">
-      <screen x="1792" y="23" width="1920" height="1057" />
-    </state>
-    <state x="2664" y="289" key="ftp.server.browser/1792.23.1920.1057/0.23.1792.1097@1792.23.1920.1057" timestamp="1603543219530" />
-    <state x="2632" y="450" key="publish.login" timestamp="1603543230048">
-      <screen x="1792" y="23" width="1920" height="1057" />
-    </state>
-    <state x="2632" y="450" key="publish.login/1792.23.1920.1057/0.23.1792.1097@1792.23.1920.1057" timestamp="1603543230048" />
-    <state x="2422" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1603536106492">
-      <screen x="1792" y="23" width="1920" height="1057" />
-    </state>
-    <state x="2422" y="258" width="670" height="676" key="search.everywhere.popup/1792.23.1920.1057/0.23.1792.1097@1792.23.1920.1057" timestamp="1603536106492" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/code/base/read_n.c</url>
-          <line>5</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
