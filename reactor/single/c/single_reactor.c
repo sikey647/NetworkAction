@@ -88,10 +88,11 @@ int main(int argc, char **argv) {
     events = calloc(MAX_EVENTS, sizeof(event));
 
     while (1) {
-        int n = epoll_wait(efd, events, MAX_EVENTS, -1);
-        fprint(stdout, "epoll_wait done.\n");
+        int n = epoll_wait(efd, events, MAX_EVENTS, 1);
+        fprintf(stdout, "epoll_wait done.\n");
 
-        for (int i = 0; i < n; i++) {
+        int i;
+        for (i = 0; i < n; i++) {
             if ((events[i].events & EPOLLERR) ||
                 (events[i].events & EPOLLHUP) ||
                 (!(events[i].events & EPOLLIN))) {
@@ -111,26 +112,26 @@ int main(int argc, char **argv) {
                 event.data.fd = conn_fd;
                 event.events = EPOLLIN | EPOLLET;
                 if (epoll_ctl(efd, EPOLL_CTL_ADD, conn_fd, &event) == -1) {
-                    perror("epoll_ctl()")
+                    perror("epoll_ctl()");
                 }
                 continue;
             } else {
-                int connect_fd = events[i].data.fd;
+                int conn_fd = events[i].data.fd;
                 char buff[BUFFER_SIZE];
                 bzero(buff, BUFFER_SIZE);
-                int read_ret = read(connect_fd, buff, sizeof(buff)));
+                int read_ret = read(conn_fd, buff, sizeof(buff));
                 if (read_ret < 0) {
                     if (errno != EAGAIN) {
                         perror("read()");
-                        close(connect_fd);
+                        close(conn_fd);
                     }
                     continue;
                 } else if (read_ret == 0) {
-                    close(connect_fd);
+                    close(conn_fd);
                     continue;
                 } else {
                     fprintf(stdout, "Client: %s\n", buff);
-
+                    fprint
                     bzero(buff, BUFFER_SIZE);
                     strcpy(buff, "Hello, Client!");
                     int send_ret = send(conn_fd, buff, sizeof(buff), 0);
