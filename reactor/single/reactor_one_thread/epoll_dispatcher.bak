@@ -1,0 +1,28 @@
+#include <sys/epoll.h>
+
+#include "event_loop.h"
+
+typedef struct {
+    int event_count;
+    int nfds;
+    int realloc_copy;
+    int efd;
+    struct epoll_event *events;
+} epoll_data_st;
+
+static void *epoll_init(event_loop_st *event_loop_ptr);
+
+static int epoll_add(event_loop_st *event_loop_ptr, event_st *event);
+
+static int epoll_del(event_loop_st *event_loop_ptr, event_st *event);
+
+static int epoll_update(event_loop_st *event_loop_ptr, event_st *event);
+
+static int epoll_dispatch(event_loop_st *event_loop_ptr, event_st *event);
+
+static void epoll_clear(event_loop_st *event_loop_ptr);
+
+const event_loop_st epoll_dispatcher = {
+    "epoll",   false,        NULL,           epoll_init,  epoll_add,
+    epoll_del, epoll_update, epoll_dispatch, epoll_clear,
+};

@@ -1,0 +1,37 @@
+//
+// Created by Sikey Liu on 2020/11/11.
+//
+
+#ifndef EVENT_LOOP_H
+#define EVENT_LOOP_H
+
+#include "event.h"
+
+typedef struct event_loop_st {
+    // select/poll/epoll
+    const char *name;
+
+    bool run_flag;
+
+    void *event_data;
+
+    // 初始化
+    void *(*init)(event_loop_st *event_loop_ptr);
+
+    // 新增事件
+    int (*add)(event_loop_st *event_loop_ptr, event_st *event_ptr);
+
+    // 删除事件
+    int (*del)(event_loop_st *event_loop_ptr, event_st *event_ptr);
+
+    // 更新事件
+    int (*update)(event_loop_st *event_loop_ptr, event_st *event_ptr);
+
+    // 事件分发
+    int (*dispatch)(event_loop_st *event_loop_ptr, struct timeval *time);
+
+    // 清除
+    void (*clear)(event_loop_st *event_loop_ptr);
+} event_loop_st;
+
+#endif  // EVENT_LOOP_H
