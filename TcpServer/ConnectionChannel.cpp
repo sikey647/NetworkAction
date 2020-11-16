@@ -11,11 +11,11 @@ ConnectionChannel::~ConnectionChannel() noexcept {
 
 }
 
-int ConnectionChannel::HandleWriteEvent() {
+int ConnectionChannel::HandleWriteEvent(void* data) {
 
 }
 
-int ConnectionChannel::HandleReadEvent() {
+int ConnectionChannel::HandleReadEvent(void* data) {
     struct sockaddr_in client_addr;
     socklen_t client_len = sizeof(client_addr);
     int conn_fd = accept(m_fd, (struct sockaddr *) &client_addr, &client_len);

@@ -6,9 +6,9 @@
 class ConnectionChannel : public Channel {
 public:
     ConnectionChannel(int listen_fd);
-    ~ConnectionChannel();
-    virtual int HandleReadEvent();
-    virtual int HandleWriteEvent();
+    virtual ~ConnectionChannel();
+    virtual int HandleReadEvent(void* data);
+    virtual int HandleWriteEvent(void* data);
 
 private:
     void setNonblocking(int fd);

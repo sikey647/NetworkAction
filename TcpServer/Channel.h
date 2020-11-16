@@ -12,8 +12,8 @@ class Channel {
 public:
     Channel(int fd, int event_type) :  {}
     virtual ~Channel() {}
-    virtual int HandleReadEvent() = 0;
-    virtual int HandleWriteEvent() = 0;
+    virtual int HandleReadEvent(void* data) = 0;
+    virtual int HandleWriteEvent(void* data) = 0;
     int getFd() {
         return m_fd;
     }

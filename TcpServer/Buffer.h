@@ -1,0 +1,10 @@
+ifndef NETWORKACTION_BUFFER_H
+#define NETWORKACTION_BUFFER_H
+
+
+class Buffer {
+
+};
+
+
+#endif //NETWORKACTION_BUFFER_H
