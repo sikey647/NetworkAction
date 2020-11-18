@@ -32,16 +32,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05f5793b-6179-40c6-b3d9-1aa4129a81c0" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/TcpServer/Buffer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TcpServer/Buffer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TcpServer/Connection.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TcpServer/Connection.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TcpServer/HandlerChannel.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TcpServer/HandlerChannel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TcpServer/Channel.h" beforeDir="false" afterPath="$PROJECT_DIR$/TcpServer/Channel.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TcpServer/ConnectionChannel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TcpServer/ConnectionChannel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TcpServer/ConnectionChannel.h" beforeDir="false" afterPath="$PROJECT_DIR$/TcpServer/ConnectionChannel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TcpServer/Connection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TcpServer/Connection.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TcpServer/Connection.h" beforeDir="false" afterPath="$PROJECT_DIR$/TcpServer/Connection.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TcpServer/HandlerChannel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TcpServer/HandlerChannel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TcpServer/HandlerChannel.h" beforeDir="false" afterPath="$PROJECT_DIR$/TcpServer/HandlerChannel.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604973892440</updated>
       <workItem from="1604973893451" duration="21771000" />
-      <workItem from="1605232763252" duration="32478000" />
+      <workItem from="1605232763252" duration="40022000" />
     </task>
     <task id="LOCAL-00001" summary="add block_queue">
       <created>1605011757940</created>
@@ -119,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605358052344</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add Connection and Buffer">
+      <created>1605530943277</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1605530943277</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,14 +156,15 @@
     <MESSAGE value="add event_loop" />
     <MESSAGE value="add EventLoop md" />
     <MESSAGE value="add tcp_server" />
-    <option name="LAST_COMMIT_MESSAGE" value="add tcp_server" />
+    <MESSAGE value="add Connection and Buffer" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Connection and Buffer" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2009" y="276" key="Vcs.Push.Dialog.v2" timestamp="1605358061050">
+    <state x="2009" y="276" key="Vcs.Push.Dialog.v2" timestamp="1605530955602">
       <screen x="1440" y="23" width="1920" height="1057" />
     </state>
     <state x="2009" y="276" key="Vcs.Push.Dialog.v2/0.23.1440.823/1440.23.1920.1057@1440.23.1920.1057" timestamp="1605358061050" />
-    <state x="2009" y="276" key="Vcs.Push.Dialog.v2/0.23.1440.824/1440.23.1920.1057@1440.23.1920.1057" timestamp="1605011778818" />
+    <state x="2009" y="276" key="Vcs.Push.Dialog.v2/0.23.1440.824/1440.23.1920.1057@1440.23.1920.1057" timestamp="1605530955602" />
     <state x="2009" y="276" key="Vcs.Push.Dialog.v2/0.23.1440.828/1440.23.1920.1057@1440.23.1920.1057" timestamp="1605101325335" />
     <state x="2009" y="276" key="Vcs.Push.Dialog.v2/0.23.1440.829/1440.23.1920.1057@1440.23.1920.1057" timestamp="1605190317346" />
     <state x="2009" y="276" key="Vcs.Push.Dialog.v2/0.23.1440.830/1440.23.1920.1057@1440.23.1920.1057" timestamp="1605190250374" />

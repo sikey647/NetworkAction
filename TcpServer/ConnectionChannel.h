@@ -12,6 +12,7 @@ public:
 
 private:
     void setNonblocking(int fd);
+
 };
 
 

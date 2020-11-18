@@ -12,7 +12,11 @@ public:
     virtual int HandleWriteEvent(void* data);
 
 private:
+    int removeHandlerChannel();
+
+private:
     Connection *m_conn;
+    EventLoop *m_event_loop;
 };
 
 #endif //NETWORKACTION_HANDLERCHANNEL_H

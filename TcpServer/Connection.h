@@ -6,48 +6,57 @@
 #include "EventLoop.h"
 #include "Channel.h"
 #include "Buffer.h"
+#include "HandlerChannel.h"
 
 class ConnectionCompletedHandler {
 public:
     virtual ~ConnectionCompletedHandler() {};
-    virtual onConnectionCompleted(const Connection &conn) = 0;
+    virtual int onConnectionCompleted(const Connection &conn) = 0;
 };
 
 class MessageHandler {
 public:
     virtual ~MessageHandler() {};
-    virtual onMessage(const Buffer &input_buffer, const Connection &conn) = 0;
+    virtual int onMessage(const Buffer &input_buffer, const Connection &conn) = 0;
 };
 
 class WriteCompletedHandler {
 public:
     virtual ~WriteCompletedHandler() {};
-    virtual onWriteCompleted(const Connection &conn) = 0;
+    virtual int onWriteCompleted(const Connection &conn) = 0;
 };
 
 class ConnectionClosedHandler {
 public:
     virtual ~ConnectionClosedHandler() {};
-    virtual onConnectionClosed(const Connection &conn) = 0;
+    virtual int onConnectionClosed(const Connection &conn) = 0;
 };
 
 class Connection {
 public:
-    Connection(shared_ptr<ConnectionCompletedHandler> connection_completed_handler,
+    Connection(int conn_fd,
+               shared_ptr<ConnectionCompletedHandler> connection_completed_handler,
                std::shared_ptr<MessageHandler> message_handler,
                std::shared_ptr<WriteCompletedHandler> write_completed_handler,
-               std::shared_ptr<ConnectionClosedHandler> connection_closed_handler);
+               std::shared_ptr<ConnectionClosedHandler> connection_closed_handler,
+               EventLoop *event_loop);
     virtual ~Connection();
     std::shared_ptr<Channel> getChannel();
     std::shared_ptr<Buffer> getInputBuffer();
     std::shared_ptr<Buffer> getOutputBuffer();
+    int shutdownConnection();
+    int removeChannel();
+    int onChannelMessage();
+    int readChannelBuffer();
+    int writeChannelBuffer();
+private:
+    int createChannel();
 
 private:
-    int closeConnection(EventLoop );
+    int m_conn_fd;
 
-private:
     // 处理事件
-    std::shared_ptr<Channel> m_channel;
+    std::shared_ptr<HandlerChannel> m_channel;
 
     // 接收缓冲区
     std::shared_ptr<Buffer> m_input_buffer;
@@ -59,6 +68,8 @@ private:
     std::shared_ptr<MessageHandler> m_message_handler;
     std::shared_ptr<WriteCompletedHandler> m_write_completed_handler;
     std::shared_ptr<ConnectionClosedHandler> m_connection_closed_handler;
+
+    EventLoop *m_event_loop;
 };
 
 
