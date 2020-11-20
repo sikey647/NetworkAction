@@ -10,7 +10,7 @@ enum EVENT {
 
 class Channel {
 public:
-    Channel(int fd, int event_type) :  {}
+    Channel(int fd, int event_type) : m_fd(fd), m_event_type(event_type) {}
     virtual ~Channel() {}
     virtual int HandleReadEvent(void* data) = 0;
     virtual int HandleWriteEvent(void* data) = 0;

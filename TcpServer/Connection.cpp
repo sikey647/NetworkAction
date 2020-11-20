@@ -49,7 +49,7 @@ int Connection::createChannel() {
     }
 }
 
-int Connection::closeChannel() {
+int Connection::removeChannel() {
     m_event_loop->delChannelEvent(m_channel);
     if (m_connection_closed_handler != nullptr) {
         m_connection_closed_handler->onConnectionClosed(*this);
@@ -63,7 +63,7 @@ int Connection::onChannelMessage() {
 }
 
 int Connection::readChannelBuffer() {
-    return m_input_buffer->ReadBuffer(m_conn_fd);
+    return m_input_buffer->ReadSocket(m_conn_fd);
 }
 
 int Connection::writeChannelBuffer() {

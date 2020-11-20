@@ -5,13 +5,12 @@
 #include "HandlerChannel.h"
 
 HandlerChannel::HandlerChannel(int conn_fd, Connection *conn, EventLoop *event_loop) :
-    Channel(conn_fd),
+    Channel(conn_fd, EVENT::READ),
     m_conn(conn),
     m_event_loop(event_loop) {
-    m_event_type = EVENT::READ;
 }
 
-HandlerChannel::~HandlerChannel() noexcept {
+HandlerChannel::~HandlerChannel() {
 
 }
 
@@ -25,9 +24,5 @@ int HandlerChannel::HandleReadEvent(void* data) {
 }
 
 int HandlerChannel::HandleWriteEvent(void* data) {
-
-}
-
-int HandlerChannel::closeHandlerChannel() {
-
+    m_conn->writeChannelBuffer();
 }
