@@ -6,13 +6,10 @@
 
 class HandlerChannel : public Channel {
 public:
-    HandlerChannel(int conn_fd, Connection *conn);
+    HandlerChannel(int conn_fd, Connection *conn, EventLoop *event_loop);
     virtual ~HandlerChannel();
     virtual int HandleReadEvent(void* data);
     virtual int HandleWriteEvent(void* data);
-
-private:
-    int removeHandlerChannel();
 
 private:
     Connection *m_conn;

@@ -26,10 +26,10 @@ int EpollDispatcher::Add(std::shared_ptr<Channel> channel) {
     int event_type = getEventType();
 
     int events = 0;
-    if (event_type & EVENT_READ) {
+    if (event_type & EVENT::READ) {
         events = events | EPOLLIN;
     }
-    if (event_type & EVENT_WRITE) {
+    if (event_type & EVENT::WRITE) {
         events = events | EPOLLOUT;
     }
 
@@ -50,10 +50,10 @@ int EpollDispatcher::Del(std::shared_ptr<Channel> channel) {
     int event_type = getEventType();
 
     int events = 0;
-    if (event_type & EVENT_READ) {
+    if (event_type & EVENT::READ) {
         events = events | EPOLLIN;
     }
-    if (event_type & EVENT_WRITE) {
+    if (event_type & EVENT::WRITE) {
         events = events | EPOLLOUT;
     }
 
@@ -71,10 +71,10 @@ int EpollDispatcher::Mod(std::shared_ptr<Channel> channel) {
     int event_type = getEventType();
 
     int events = 0;
-    if (event_type & EVENT_READ) {
+    if (event_type & EVENT::READ) {
         events = events | EPOLLIN;
     }
-    if (event_type & EVENT_WRITE) {
+    if (event_type & EVENT::WRITE) {
         events = events | EPOLLOUT;
     }
 

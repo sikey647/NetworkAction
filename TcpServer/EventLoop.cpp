@@ -37,11 +37,11 @@ int EventLoop::HandleEvent(int fd, int event_type) {
         return -1;
     }
 
-    if (event_type & EVENT_READ) {
+    if (event_type & EVENT::READ) {
         channel_itr.second->HandleReadEvent();
     }
 
-    if (event_type & EVENT_WRITE) {
+    if (event_type & EVENT::WRITE) {
         channel_itr.second->HandleWriteEvent();
     }
 
@@ -68,7 +68,7 @@ int EventLoop::makeChannelEvent(std::shared_ptr <Channel> channel, int channel_o
     if (std::this_thread::get_id() == m_thread_id) {
         handlePendingChanel();
     } else {
-        // wakeup sub thread
+        handleWakeup();
     }
 }
 
@@ -121,4 +121,12 @@ int EventLoop::modPendingChannel(std::shared_ptr <Channel> channel) {
     }
 
     return 0;
+}
+
+int EventLoop::handleWakeup() {
+    char one = 'a';
+    ssize_t n = write(eventLoop->socketPair[0], &one, sizeof one);
+    if (n != sizeof one) {
+        std::cout << "wakeup event loop thread failed" << std::endl;
+    }
 }
